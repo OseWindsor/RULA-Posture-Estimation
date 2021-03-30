@@ -1,0 +1,136 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<head>
+    <link rel="stylesheet" href="static/css/result_file.css">
+</head>
+<h2>RULA Posture Predictor Result</h2>
+
+<div class="row">
+
+  <div class="column">
+    <table>
+      <tr>
+        <th colspan="2">Left Body</th>
+      </tr>
+      <tr>
+        <td>Upper Arm Score</td>
+        <td class="circle">{{rula_result_dict['left_upper_arm_score']}}</td>
+      </tr>
+      <tr>
+        <td>Lower Arm Score</td>
+        <td class="circle">{{rula_result_dict['left_wrist_score']}}</td>
+      </tr>
+      <tr>
+        <td>Wrist Score</td>
+        <td class="circle">{{rula_result_dict['left_wrist_score']}}</td>
+      </tr>
+      <tr>
+        <td>Wrist Twist Score</td>
+        <td class="circle">{{rula_result_dict['left_wrist_twist_score']}}</td>
+      </tr>
+      <tr>
+        <td>Group-A Score</td>
+        <td class="circle">{{rula_result_dict['left_posture_score_a']}}</td>
+      </tr>
+      <tr>
+        <td>Neck Score</td>
+        <td class="circle">{{rula_result_dict['neck_score']}}</td>
+      </tr>
+      <tr>
+        <td>Trunk Score</td>
+        <td class="circle">{{rula_result_dict['trunk_score']}}</td>
+      </tr>
+      <tr>
+        <td>Leg Score</td>
+        <td class="circle">{{rula_result_dict['leg_score']}}</td>
+      </tr>
+      <tr>
+        <td>Group-B Score</td>
+        <td class="circle">{{rula_result_dict['right_posture_score_b']}}</td>
+      </tr>
+      <tr id="left_grand_score_style">
+        <td><strong>Grand Score</strong></td>
+        <td class="circle"><strong>{{rula_result_dict['right_grand_score']}}</strong></td>
+      </tr>
+    </table>
+  </div> <!-- column for table 1 class ends here-->
+
+  <div class="column">
+    <table>
+      <tr>
+        <th colspan="2">Right Body</th>
+      </tr>
+      <tr>
+        <td>Upper Arm Score</td>
+        <td class="circle">{{rula_result_dict['right_upper_arm_score']}}</td>
+      </tr>
+      <tr>
+        <td>Lower Arm Score</td>
+        <td class="circle">{{rula_result_dict['left_lower_arm_score']}}</td>
+      </tr>
+      <tr>
+        <td>Wrist Score</td>
+        <td class="circle">{{rula_result_dict['right_wrist_score']}}</td>
+      </tr>
+      <tr>
+        <td>Wrist Twist Score</td>
+        <td class="circle">{{rula_result_dict['right_wrist_twist_score']}}</td>
+      </tr>
+      <tr>
+        <td>Group-A Score</td>
+        <td class="circle">{{rula_result_dict['right_posture_score_a']}}</td>
+      </tr>
+      <tr>
+        <td>Neck Score</td>
+        <td class="circle">{{rula_result_dict['neck_score']}}</td>
+      </tr>
+      <tr>
+        <td>Trunk Score</td>
+        <td class="circle">{{rula_result_dict['trunk_score']}}</td>
+      </tr>
+      <tr>
+        <td>Leg Score</td>
+        <td class="circle">{{rula_result_dict['leg_score']}}</td>
+      </tr>
+      <tr>
+        <td>Group-B Score</td>
+        <td class="circle">{{rula_result_dict['right_posture_score_b']}}</td>
+      </tr>
+      <tr id="right_grand_score_style">
+        <td><strong>Grand Score</strong></td>
+        <td class="circle"><strong>{{rula_result_dict['right_grand_score']}}</strong></td>
+      </tr>
+    </table>
+  </div> <!-- column for table 2 class ends here-->
+<div class="column">
+  <img style="margin-top: 200px;" src="static/images/rapid-upper-limb-assessment-rula-table.png"/>
+</div>
+</div><!-- row class ends here-->
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    $(document).ready(function(){
+        $.fn.change_color = function(id, score){
+        var section_id="#"+id;
+        if(score<=2){
+          $(section_id).css("background-color","#C3FDB8");
+         }else if(3<=score<=4){
+          $(section_id).css("background-color","#FBF6D9");
+         }else if(5<=score<=6){
+          $(section_id).css("background-color","#F9966B");
+         }else if(7<=score){
+          $(section_id).css("background-color","#E77471");
+         }
+      }
+
+      var right_grand_score = jQuery("#right_grand_score_style").find("td:eq(1)").text();
+      $.fn.change_color("right_grand_score_style", right_grand_score);
+      var left_grand_score = jQuery("#left_grand_score_style").find("td:eq(1)").text();
+      $.fn.change_color("left_grand_score_style", left_grand_score);
+
+     });
+
+</script>
+<button onclick="goBack()">Go Back</button>

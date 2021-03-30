@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>RULA DL Web App</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="static/javascript/app_script.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .footer {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          background-color: #e9ecef;
+          color: #000000;
+          text-align: center;
+        }
+        .navbar {
+            margin-bottom: 0px;
+        }
+        .multiple_posture{
+          display:none;
+        }
+    </style>
+</head>
+<body>
+    <!-- header starts here -->
+
+
+    <!-- header ends here -->
+<div class="container">
+  <div class="jumbotron">
+    <h2>RULA Posture Predictor Tool</h2>
+    <p>This app is for evaluating postures from images based on RULA</p>
+  </div>
+  <form>
+    <div class="radio single_posture">
+      <label><input type="radio" value="1" name="posture_radio" checked>Single Posture</label>
+    </div>
+    <div class="radio multiple_posture">
+      <label><input type="radio" value="2" name="posture_radio">Multiple Posture</label>
+    </div>
+  </form>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" id="show_posture_upload_screen">
+      Upload Posture Images
+    </button>
+</div>
+
+
+
+<!-- Modal for uploading 2 images-->
+<div class="modal fade" id="single_posture_modal" tabindex="-1" role="dialog" aria-labelledby="singleposturemodalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="singleposturemodalTitle">Single Posture Upload Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form for single Posture-->
+        <form method="POST" name = "single_posture_form" action="/predict" enctype="multipart/form-data">
+        <p>Upload Side view Image</p>
+        <input id ="side_img" type="file" name="side_img" accept="image/x-png,image/gif,image/jpeg" />
+        <p>Upload Front view Image</p>
+        <input id = "front_img" type="file" name="front_img" accept="image/x-png,image/gif,image/jpeg" />
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="posture_lean" id="posture_lean">
+            <label class="form-check-label" for="posture_lean">Is Posture Lean?</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="shoulder_raise" id="shoulder_raise">
+            <label class="form-check-label" for="shoulder_raise">Is Shoulder raised?</label>
+          </div>
+        <br/><br/>
+            <input type="submit" class="btn btn-primary" id="predict_btn" value="Submit"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for uploading 2 images-->
+<div class="modal fade" id="multiple_posture_modal" tabindex="-1" role="dialog" aria-labelledby="multiple_posture_modal_title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="multiple_posture_modal_title">Multiple Posture Upload Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form for multiple Posture-->
+        <form method="POST" name = "multiple_posture_form" action="/predict_postures" enctype="multipart/form-data">
+          <p>Upload Directory Folder with 2 view Postures</p>
+          <input id ="posture_img_folder" type="file" name="posture_img_folder" webkitdirectory mozdirectory multiple/>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="multiple_posture_lean" id="multiple_posture_lean">
+            <label class="form-check-label" for="multiple_posture_lean">Is Posture Lean?</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="multiple_shoulder_raise" id="multiple_shoulder_raise">
+            <label class="form-check-label" for="multiple_shoulder_raise">Is Shoulder raised?</label>
+          </div>
+          <br/><br/>
+          <input type="submit" id="predict_postures" value = "View Results">
+          <ul id="listing"></ul>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!-- Footer -->
+<div class="footer">
+  <span>Website Owner: <a href="https://www.uwindsor.ca/engineering/research/434/occupational-safety-and-ergonomics">OSE - Uwindsor Lab</a>&nbsp</span>
+  <span>Website Created By: <a href="https://www.linkedin.com/in/gouravnayak/">Gourav Kumar Nayak</a></span>
+</div>
+
+</body>
+</html>

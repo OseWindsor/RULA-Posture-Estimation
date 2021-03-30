@@ -1,0 +1,14 @@
+#configure the settings of app engine application
+runtime: python3.8.6
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /static
+  static_dir: static
+- url: /.*
+  script: main.app
+
+libraries:
+  - name: ssl
+    version: latest

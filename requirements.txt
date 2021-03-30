@@ -1,0 +1,11 @@
+Flask~=1.1.2
+Werkzeug
+opencv-python~=4.5.1.48
+Keras~=2.4.3
+scipy~=1.6.1
+tensorflow~=2.4.1
+Pillow~=8.1.0
+matplotlib~=3.3.4
+numpy~=1.19.5
+pandas~=1.2.2
+scikit-image~=0.18.1

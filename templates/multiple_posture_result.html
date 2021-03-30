@@ -1,0 +1,18 @@
+{% for posture_folder, posture_evaluations  in rula_multiple_posture_dict.items() %}
+<h3>{{posture_folder}}</h3>
+
+<table>
+{% for rula_group_name, rula_score in posture_evaluations.items() %}
+<tr>
+    <th>{{ rula_group_name }}</th>
+    <td>{{ rula_score }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endfor %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<button onclick="goBack()">Go Back</button>
